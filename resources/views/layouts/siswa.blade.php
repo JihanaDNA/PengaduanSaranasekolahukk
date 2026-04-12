@@ -1,68 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Siswa</title>
+    <title>Siswa Panel</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial;
+            font-family: 'Arial', sans-serif;
             display: flex;
+            background: #F7F4D5; /* Beige */
         }
 
         /* SIDEBAR */
         .sidebar {
-            width: 220px;
+            width: 240px;
             height: 100vh;
-            background: #16a085;
-            color: white;
-            padding: 20px;
+            background: #0A3323; /* Dark Green */
+            color: #F7F4D5; /* Beige */
+            padding: 25px 15px;
+            box-sizing: border-box;
+            position: fixed; /* Tetap di kiri */
         }
 
         .sidebar h2 {
             text-align: center;
+            margin-bottom: 30px;
+            font-size: 20px;
+            border-bottom: 1px solid #839958;
+            padding-bottom: 15px;
         }
 
         .sidebar a {
             display: block;
-            color: white;
-            padding: 10px;
+            color: #F7F4D5;
+            padding: 12px 15px;
             text-decoration: none;
             margin: 5px 0;
-            border-radius: 5px;
+            border-radius: 8px;
+            transition: 0.3s;
         }
 
-        .sidebar a:hover {
-            background: #1abc9c;
+        /* Menu Aktif / Hover (Ada kotaknya) */
+        .sidebar a:hover, .sidebar a.active {
+            background: #839958; /* Moss Green */
+            color: #0A3323;
+            font-weight: bold;
         }
 
-        /* CONTENT */
+        /* CONTENT AREA */
         .content {
             flex: 1;
-            padding: 20px;
-            background: #ecf0f1;
+            padding: 30px;
+            margin-left: 240px; /* Jarak agar tidak tertutup sidebar */
+            min-height: 100vh;
         }
 
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
+        .logout-link {
+            margin-top: 30px;
+            color: #D3968C !important; /* Rosy Brown */
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR -->
     <div class="sidebar">
-        <h2>SISWA</h2>
+        <h2>SISWA PANEL</h2>
 
-        <a href="/siswa/dashboard">Dashboard</a>
-        <a href="/siswa/aspirasi/create">Input Aspirasi</a>
-        <a href="/siswa/aspirasi">Riwayat Aspirasi</a>
-        <a href="/siswa/profile">Profile</a>
-        <a href="/logout">Logout</a>
+        <a href="/siswa/dashboard" class="{{ request()->is('siswa/dashboard') ? 'active' : '' }}">
+            Dashboard
+        </a>
+        
+        <a href="/siswa/aspirasi/create" class="{{ request()->is('siswa/aspirasi/create*') ? 'active' : '' }}">
+            Input Aspirasi
+        </a>
+        
+        <a href="/siswa/aspirasi" class="{{ request()->is('siswa/aspirasi') ? 'active' : '' }}">
+            Riwayat Aspirasi
+        </a>
+        
+        <a href="/siswa/profile" class="{{ request()->is('siswa/profile*') ? 'active' : '' }}">
+            Profile
+        </a>
+        
+        <a href="/logout" class="logout-link">Logout</a>
     </div>
 
-    <!-- CONTENT -->
     <div class="content">
         @yield('content')
     </div>

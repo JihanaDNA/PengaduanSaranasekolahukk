@@ -13,4 +13,5 @@ class DashboardController extends Controller
 
         return view('siswa.dashboard', compact('siswa'));
     }
+    
 }

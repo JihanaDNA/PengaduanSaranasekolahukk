@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Aspirasi;
 use App\Models\Kategori;
+use Illuminate\Http\Request;
 
 class AspirasiController extends Controller
 {

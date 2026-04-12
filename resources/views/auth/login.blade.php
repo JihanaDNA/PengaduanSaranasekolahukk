@@ -1,105 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Login | Pengaduan Sarana Sekolah</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            box-sizing: border-box; /* Memastikan padding tidak merusak lebar kotak */
+        }
+
         body {
             margin: 0;
-            font-family: Arial;
-            background: linear-gradient(135deg, #3498db, #6dd5fa);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
             height: 100vh;
+            background-color: #F7F4D5;
+        }
+
+        /* LEFT SIDE */
+        .left {
+            flex: 1.2;
+            background: linear-gradient(135deg, #0A3323, #105666);
+            color: #F7F4D5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px;
+        }
+
+        .left h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .left p {
+            font-size: 18px;
+            color: #D3968C;
+            max-width: 450px;
+        }
+
+        /* RIGHT SIDE */
+        .right {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .login-box {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 320px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .login-box h2 {
-            text-align: center;
-            margin-bottom: 20px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #0A3323;
+            font-weight: 600;
+        }
+
+        /* Grouping fields for consistent alignment */
+        .form-group {
+            margin-bottom: 15px;
         }
 
         select, input {
             width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            padding: 14px;
+            margin-bottom: 15px; /* Jarak antar kotak disamakan */
+            border-radius: 10px;
+            border: 1.5px solid #eee;
+            outline: none;
+            font-family: inherit;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        select:focus, input:focus {
+            border-color: #105666;
+            background-color: #f9fdfb;
         }
 
         button {
             width: 100%;
-            padding: 10px;
-            background: #3498db;
+            padding: 14px;
+            background: #0A3323;
             border: none;
             color: white;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-top: 5px;
         }
 
         button:hover {
-            background: #2980b9;
+            background: #105666;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 86, 102, 0.3);
         }
 
         .error {
-            color: red;
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            text-align: center;
+            color: #839958;
+            opacity: 0.8;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .left { padding: 40px; }
+            .left h1 { font-size: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .left { display: none; }
+            .right { background: linear-gradient(135deg, #0A3323, #105666); }
         }
     </style>
 </head>
 <body>
 
-<div class="login-box">
-    <h2>Login</h2>
+<div class="left">
+    <h1>Bersama Rawat <br> Fasilitas Sekolah</h1>
+    <p>Wadah aspirasi digital untuk memantau, melaporkan, dan memperbaiki sarana belajar kita demi kenyamanan bersama.</p>
+</div>
 
-    @if(session('error'))
-        <p class="error">{{ session('error') }}</p>
-    @endif
+<div class="right">
+    <div class="login-box">
+        <h2>Selamat Datang</h2>
 
-    <form method="POST" action="{{ route('login.process') }}">
-        @csrf
+        @if(session('error'))
+            <div class="error">{{ session('error') }}</div>
+        @endif
 
-        <!-- PILIH LOGIN -->
-        <select name="login_type" id="login_type" onchange="toggleForm()">
-            <option value="admin">Admin</option>
-            <option value="siswa">Siswa</option>
-        </select>
+        <form method="POST" action="{{ route('login.process') }}">
+            @csrf
 
-        <!-- FORM ADMIN -->
-        <div id="adminForm">
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-        </div>
+            <label style="font-size: 13px; color: #666; margin-bottom: 5px; display: block;">Login Sebagai:</label>
+            <select name="login_type" id="login_type" onchange="toggleForm()">
+                <option value="admin">Admin</option>
+                <option value="siswa">Siswa</option>
+            </select>
 
-        <!-- FORM SISWA -->
-        <div id="siswaForm" style="display:none;">
-            <input type="text" name="nis" placeholder="NIS">
-            <input type="text" name="kelas" placeholder="Kelas">
-        </div>
+            <div id="formFields">
+                <div id="adminInputs">
+                    <input type="text" name="username" placeholder="Username">
+                    <input type="password" name="password" placeholder="Password">
+                </div>
 
-        <button type="submit">Login</button>
-    </form>
+                <div id="siswaInputs" style="display:none;">
+                    <input type="text" name="nis" placeholder="Nomor Induk Siswa (NIS)">
+                    <input type="text" name="kelas" placeholder="Kelas (Contoh: XII RPL 1)">
+                </div>
+            </div>
+
+            <button type="submit">Login</button>
+
+            <div class="footer">
+                Pengaduan Sarana Sekolah
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
 function toggleForm() {
-    let type = document.getElementById('login_type').value;
+    const type = document.getElementById('login_type').value;
+    const adminInputs = document.getElementById('adminInputs');
+    const siswaInputs = document.getElementById('siswaInputs');
 
     if (type === 'admin') {
-        document.getElementById('adminForm').style.display = 'block';
-        document.getElementById('siswaForm').style.display = 'none';
+        adminInputs.style.display = 'block';
+        siswaInputs.style.display = 'none';
+        // Reset nilai input agar tidak tertukar saat submit
+        siswaInputs.querySelectorAll('input').forEach(i => i.value = '');
     } else {
-        document.getElementById('adminForm').style.display = 'none';
-        document.getElementById('siswaForm').style.display = 'block';
+        adminInputs.style.display = 'none';
+        siswaInputs.style.display = 'block';
+        adminInputs.querySelectorAll('input').forEach(i => i.value = '');
     }
 }
 </script>
