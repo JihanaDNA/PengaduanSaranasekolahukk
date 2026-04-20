@@ -2,7 +2,6 @@
 
 @section('content')
 <style>
-    /* Container utama agar posisi form di tengah layar */
     .center-container {
         display: flex;
         justify-content: center;
@@ -16,13 +15,13 @@
         border-radius: 15px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         width: 100%;
-        max-width: 700px; /* Lebar kotak yang lega */
+        max-width: 700px;
     }
 
     .form-wrapper h2 {
         margin-top: 0;
         margin-bottom: 25px;
-        color: #0A3323; /* Dark Green */
+        color: #0A3323;
         font-size: 26px;
         text-align: center;
         border-bottom: 2px solid #F7F4D5;
@@ -41,11 +40,10 @@
         font-size: 15px;
     }
 
-    /* Input Styling */
     input[type="text"] {
         width: 100%;
         padding: 14px 15px;
-        border: 1.5px solid #839958; /* Moss Green */
+        border: 1.5px solid #839958;
         border-radius: 10px;
         font-family: inherit;
         font-size: 15px;
@@ -56,12 +54,11 @@
     }
 
     input[type="text"]:focus {
-        border-color: #105666; /* Midnight Green */
+        border-color: #105666;
         background-color: #fff;
         box-shadow: 0 0 10px rgba(16, 86, 102, 0.1);
     }
 
-    /* Error Alert */
     .alert-danger {
         background: #f8d7da;
         color: #721c24;
@@ -76,7 +73,6 @@
         margin: 5px 0;
     }
 
-    /* Tombol */
     .button-group {
         display: flex;
         gap: 12px;
@@ -85,7 +81,7 @@
 
     button[type="submit"] {
         flex: 2;
-        background: #105666; /* Midnight Green */
+        background: #105666;
         color: white;
         border: none;
         padding: 15px;
@@ -103,7 +99,7 @@
 
     .btn-cancel {
         flex: 1;
-        background: #D3968C; /* Rosy Brown */
+        background: #D3968C;
         color: white;
         text-decoration: none;
         text-align: center;

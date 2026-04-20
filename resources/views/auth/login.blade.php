@@ -67,7 +67,6 @@
             font-weight: 600;
         }
 
-        /* Grouping fields for consistent alignment */
         .form-group {
             margin-bottom: 15px;
         }
@@ -75,7 +74,7 @@
         select, input {
             width: 100%;
             padding: 14px;
-            margin-bottom: 15px; /* Jarak antar kotak disamakan */
+            margin-bottom: 15px;
             border-radius: 10px;
             border: 1.5px solid #eee;
             outline: none;
@@ -193,7 +192,6 @@ function toggleForm() {
     if (type === 'admin') {
         adminInputs.style.display = 'block';
         siswaInputs.style.display = 'none';
-        // Reset nilai input agar tidak tertukar saat submit
         siswaInputs.querySelectorAll('input').forEach(i => i.value = '');
     } else {
         adminInputs.style.display = 'none';

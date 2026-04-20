@@ -18,7 +18,6 @@
         padding-bottom: 15px;
     }
 
-    /* Alert Sukses */
     .alert-success {
         background: #d4edda;
         color: #155724;
@@ -29,16 +28,15 @@
         font-weight: bold;
     }
 
-    /* Styling Tabel Bergaris */
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
-        border: 1px solid #839958; /* Warna Moss Green */
+        border: 1px solid #839958;
     }
 
     table th {
-        background: #F7F4D5; /* Beige */
+        background: #F7F4D5;
         color: #0A3323;
         text-align: left;
         padding: 12px;
@@ -58,7 +56,6 @@
         background-color: #fcfcfc;
     }
 
-    /* Styling Select Status */
     select {
         width: 100%;
         padding: 8px;
@@ -115,7 +112,6 @@
 
                 <td align="center">
                     @if($a->foto)
-                        {{-- Foto tampil biasa tanpa link --}}
                         <img src="/photo/uploads/{{ $a->foto }}" width="80" height="80" class="img-display">
                     @else
                         <span style="color: #999; font-style: italic; font-size: 12px;">Tidak ada foto</span>

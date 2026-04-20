@@ -7,18 +7,18 @@
             margin: 0;
             font-family: 'Arial', sans-serif;
             display: flex;
-            background: #F7F4D5; /* Beige */
+            background: #F7F4D5;
         }
 
         /* SIDEBAR */
         .sidebar {
             width: 240px;
             height: 100vh;
-            background: #0A3323; /* Dark Green */
-            color: #F7F4D5; /* Beige */
+            background: #0A3323;
+            color: #ffffff; 
             padding: 25px 15px;
             box-sizing: border-box;
-            position: fixed; /* Tetap di kiri */
+            position: fixed;
         }
 
         .sidebar h2 {
@@ -39,24 +39,22 @@
             transition: 0.3s;
         }
 
-        /* Menu Aktif / Hover (Ada kotaknya) */
         .sidebar a:hover, .sidebar a.active {
-            background: #839958; /* Moss Green */
+            background: #839958;
             color: #0A3323;
             font-weight: bold;
         }
 
-        /* CONTENT AREA */
         .content {
             flex: 1;
             padding: 30px;
-            margin-left: 240px; /* Jarak agar tidak tertutup sidebar */
+            margin-left: 240px; 
             min-height: 100vh;
         }
 
         .logout-link {
             margin-top: 30px;
-            color: #D3968C !important; /* Rosy Brown */
+            color: #D3968C !important; 
             font-weight: bold;
         }
     </style>

@@ -16,11 +16,17 @@ class DashboardController extends Controller
         $totalAspirasi = Aspirasi::count();
         $aspirasiMenunggu = Aspirasi::where('status', 'Menunggu')->count();
 
+        $aspirasiTerbaru = \App\Models\Aspirasi::with(['siswa', 'kategori'])
+                    ->latest()
+                    ->take(5)
+                    ->get();
+
         return view('admin.dashboard', compact(
             'totalSiswa',
             'totalKategori',
             'totalAspirasi',
-            'aspirasiMenunggu'
+            'aspirasiMenunggu',
+            'aspirasiTerbaru'
         ));
     }
 }

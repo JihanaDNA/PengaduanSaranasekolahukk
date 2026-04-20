@@ -22,9 +22,8 @@
         font-size: 24px;
     }
 
-    /* Tombol Tambah */
     .btn-tambah {
-        background: #105666; /* Midnight Green */
+        background: #105666; 
         color: white;
         text-decoration: none;
         padding: 10px 20px;
@@ -39,7 +38,6 @@
         transform: translateY(-2px);
     }
 
-    /* Alert Sukses */
     .alert-success {
         background: #d4edda;
         color: #155724;
@@ -49,7 +47,6 @@
         border-left: 5px solid #28a745;
     }
 
-    /* Styling Tabel */
     table {
         width: 100%;
         border-collapse: collapse;
@@ -74,16 +71,15 @@
         background-color: #f9f9f9;
     }
 
-    /* Tombol Aksi */
     .btn-edit {
-        color: #839958; /* Moss Green */
+        color: #839958;
         text-decoration: none;
         font-weight: bold;
         margin-right: 10px;
     }
 
     .btn-delete {
-        color: #D3968C; /* Rosy Brown */
+        color: #D3968C;
         text-decoration: none;
         font-weight: bold;
     }

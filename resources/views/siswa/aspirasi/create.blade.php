@@ -2,7 +2,6 @@
 
 @section('content')
 <style>
-    /* Container utama agar posisi form di tengah layar */
     .center-container {
         display: flex;
         justify-content: center;
@@ -16,13 +15,13 @@
         border-radius: 15px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         width: 100%;
-        max-width: 750px; /* Sedikit lebih lebar agar textarea lega */
+        max-width: 750px;
     }
 
     .form-wrapper h2 {
         margin-top: 0;
         margin-bottom: 25px;
-        color: #0A3323; /* Dark Green */
+        color: #0A3323;
         font-size: 26px;
         text-align: center;
         border-bottom: 2px solid #F7F4D5;
@@ -41,14 +40,13 @@
         font-size: 15px;
     }
 
-    /* Styling Input, Select, dan Textarea */
     input[type="text"], 
     select, 
     textarea,
     input[type="file"] {
         width: 100%;
         padding: 14px 15px;
-        border: 1.5px solid #839958; /* Moss Green */
+        border: 1.5px solid #839958;
         border-radius: 10px;
         font-family: inherit;
         font-size: 15px;
@@ -61,13 +59,13 @@
     input[type="text"]:focus, 
     select:focus, 
     textarea:focus {
-        border-color: #105666; /* Midnight Green */
+        border-color: #105666;
         background-color: #fff;
         box-shadow: 0 0 10px rgba(16, 86, 102, 0.1);
     }
 
     textarea {
-        resize: vertical; /* Hanya bisa ditarik ke bawah */
+        resize: vertical;
     }
 
     /* Error Alert */
@@ -83,7 +81,7 @@
 
     /* Tombol */
     button[type="submit"] {
-        background: #105666; /* Midnight Green */
+        background: #105666;
         color: white;
         border: none;
         padding: 16px;

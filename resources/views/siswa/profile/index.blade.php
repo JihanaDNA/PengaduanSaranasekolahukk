@@ -2,7 +2,6 @@
 
 @section('content')
 <style>
-    /* Container utama agar posisi profile di tengah layar */
     .center-container {
         display: flex;
         justify-content: center;
@@ -24,7 +23,7 @@
     .avatar-circle {
         width: 100px;
         height: 100px;
-        background-color: #839958; /* Moss Green */
+        background-color: #839958;
         color: white;
         border-radius: 50%;
         display: flex;
@@ -100,7 +99,7 @@
                 <td class="value-cell">: <strong>{{ $siswa->nis }}</strong></td>
             </tr>
             <tr>
-                <td class="label-cell">Nama Lengkap</td>
+                <td class="label-cell">Nama Siswa/i</td>
                 <td class="value-cell">: {{ $siswa->nama }}</td>
             </tr>
             <tr>

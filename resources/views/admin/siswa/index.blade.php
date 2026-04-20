@@ -24,9 +24,8 @@
         font-size: 24px;
     }
 
-    /* Tombol Tambah */
     .btn-tambah {
-        background: #105666; /* Midnight Green */
+        background: #105666;
         color: white;
         text-decoration: none;
         padding: 10px 20px;
@@ -41,7 +40,6 @@
         transform: translateY(-2px);
     }
 
-    /* Alert Sukses */
     .alert-success {
         background: #d4edda;
         color: #155724;
@@ -52,16 +50,15 @@
         font-weight: bold;
     }
 
-    /* Tabel Bergaris */
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
-        border: 1px solid #839958; /* Moss Green */
+        border: 1px solid #839958;
     }
 
     table th {
-        background: #F7F4D5; /* Beige */
+        background: #F7F4D5;
         color: #0A3323;
         text-align: left;
         padding: 15px;

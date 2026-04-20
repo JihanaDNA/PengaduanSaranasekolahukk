@@ -2,12 +2,11 @@
 
 @section('content')
 <style>
-    /* Container utama untuk centering */
     .center-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 80vh; /* Mengatur tinggi agar konten di tengah secara vertikal */
+        min-height: 80vh;
     }
 
     .form-wrapper {
@@ -16,15 +15,15 @@
         border-radius: 15px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         width: 100%;
-        max-width: 700px; /* Ukuran kotak yang lebih lebar dan pas */
+        max-width: 700px;
     }
 
     .form-wrapper h2 {
         margin-top: 0;
         margin-bottom: 25px;
-        color: #0A3323; /* Dark Green */
+        color: #0A3323;
         font-size: 26px;
-        text-align: center; /* Judul di tengah */
+        text-align: center;
         border-bottom: 2px solid #F7F4D5;
         padding-bottom: 15px;
     }
@@ -44,7 +43,7 @@
     input[type="text"] {
         width: 100%;
         padding: 15px;
-        border: 1.5px solid #839958; /* Moss Green */
+        border: 1.5px solid #839958;
         border-radius: 10px;
         font-family: inherit;
         font-size: 16px;
@@ -62,12 +61,12 @@
 
     .button-group {
         display: flex;
-        gap: 10px; /* Jarak antar tombol */
+        gap: 10px;
     }
 
     button[type="submit"] {
-        flex: 2; /* Tombol simpan lebih lebar */
-        background: #105666; /* Midnight Green */
+        flex: 2;
+        background: #105666;
         color: white;
         border: none;
         padding: 15px;
@@ -85,7 +84,7 @@
 
     .btn-cancel {
         flex: 1;
-        background: #D3968C; /* Rosy Brown */
+        background: #D3968C;
         color: white;
         text-decoration: none;
         text-align: center;

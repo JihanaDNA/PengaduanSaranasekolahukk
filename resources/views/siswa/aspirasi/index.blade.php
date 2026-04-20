@@ -18,16 +18,15 @@
         padding-bottom: 15px;
     }
 
-    /* Styling Tabel Bergaris */
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
-        border: 1px solid #839958; /* Moss Green */
+        border: 1px solid #839958;
     }
 
     table th {
-        background: #F7F4D5; /* Beige */
+        background: #F7F4D5;
         color: #0A3323;
         text-align: left;
         padding: 12px;
