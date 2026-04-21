@@ -68,14 +68,9 @@
         font-weight: bold;
     }
 
-    select:focus {
-        border-color: #105666;
-    }
-
     .img-display {
         border-radius: 8px;
         border: 1px solid #839958;
-        display: block;
         object-fit: cover;
     }
 </style>
@@ -97,6 +92,7 @@
                 <th>Kategori</th>
                 <th>Lokasi</th>
                 <th>Keterangan</th>
+                <th width="140">Tanggal</th>
                 <th width="120">Foto</th>
                 <th width="160">Status</th>
             </tr>
@@ -111,10 +107,16 @@
                 <td>{{ $a->keterangan }}</td>
 
                 <td align="center">
+                    {{ \Carbon\Carbon::parse($a->tanggal_aspirasi)->format('d M Y') }}
+                </td>
+
+                <td align="center">
                     @if($a->foto)
                         <img src="/photo/uploads/{{ $a->foto }}" width="80" height="80" class="img-display">
                     @else
-                        <span style="color: #999; font-style: italic; font-size: 12px;">Tidak ada foto</span>
+                        <span style="color: #999; font-style: italic; font-size: 12px;">
+                            Tidak ada foto
+                        </span>
                     @endif
                 </td>
 
@@ -124,7 +126,7 @@
                         @php
                             $bgColor = '#f8d7da'; 
                             $textColor = '#721c24';
-                            
+
                             if($a->status == 'Proses') {
                                 $bgColor = '#fff3cd'; 
                                 $textColor = '#856404';
@@ -149,7 +151,9 @@
             </tr>
             @empty
             <tr>
-                <td colspan="7" align="center" style="padding: 30px; color: #999;">Belum ada laporan aspirasi masuk.</td>
+                <td colspan="8" align="center" style="padding: 30px; color: #999;">
+                    Belum ada laporan aspirasi masuk.
+                </td>
             </tr>
             @endforelse
         </tbody>

@@ -142,7 +142,7 @@
             </div>
 
             <div class="form-group">
-                <label>Upload Foto Pendukung (Opsional)</label>
+                <label>Upload Foto Pendukung</label>
                 <input type="file" name="foto" accept="image/*">
                 <p class="info-text">*Format: jpg, png, jpeg. Maksimal 2MB.</p>
             </div>
