@@ -9,18 +9,12 @@ use Illuminate\Http\Request;
 
 class AspirasiController extends Controller
 {
-    // ======================
-    // FORM INPUT
-    // ======================
     public function create()
     {
         $kategoris = Kategori::all();
         return view('siswa.aspirasi.create', compact('kategoris'));
     }
 
-    // ======================
-    // SIMPAN DATA
-    // ======================
     public function store(Request $request)
     {
         $request->validate([
@@ -38,12 +32,10 @@ class AspirasiController extends Controller
             'foto.max' => 'Ukuran maksimal 2MB!'
         ]);
 
-        // Upload Foto (karena sudah required, pasti ada file)
         $file = $request->file('foto');
         $namaFile = time() . '_' . $file->getClientOriginalName();
         $file->move(public_path('photo/uploads'), $namaFile);
 
-        // Simpan ke database
         Aspirasi::create([
             'siswa_id' => session('siswa_id'),
             'kategori_id' => $request->kategori_id,
@@ -57,11 +49,26 @@ class AspirasiController extends Controller
         return redirect('/siswa/dashboard')->with('success', 'Aspirasi berhasil dikirim');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $aspirasis = Aspirasi::with('kategori')
-            ->where('siswa_id', session('siswa_id'))
-            ->get();
+        $query = \App\Models\Aspirasi::with('kategori')
+            ->where('siswa_id', session('siswa_id'));
+
+        if ($request->search) {
+            $query->where(function($q) use ($request) {
+                $q->where('lokasi', 'like', '%'.$request->search.'%')
+                ->orWhere('keterangan', 'like', '%'.$request->search.'%')
+                ->orWhereHas('kategori', function($k) use ($request){
+                    $k->where('ket_kategori', 'like', '%'.$request->search.'%');
+                });
+            });
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $aspirasis = $query->latest()->get();
 
         return view('siswa.aspirasi.index', compact('aspirasis'));
     }

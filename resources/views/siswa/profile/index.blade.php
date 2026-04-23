@@ -99,7 +99,7 @@
                 <td class="value-cell">: <strong>{{ $siswa->nis }}</strong></td>
             </tr>
             <tr>
-                <td class="label-cell">Nama Siswa/i</td>
+                <td class="label-cell">Nama Siswa</td>
                 <td class="value-cell">: {{ $siswa->nama }}</td>
             </tr>
             <tr>

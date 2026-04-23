@@ -4,14 +4,38 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Siswa;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $siswa = Siswa::find(session('siswa_id'));
+        $id = session('siswa_id');
 
-        return view('siswa.dashboard', compact('siswa'));
+        $query = \App\Models\Aspirasi::with('kategori')
+            ->where('siswa_id', $id);
+
+        // SEARCH
+        if ($request->search) {
+            $query->where(function($q) use ($request) {
+                $q->where('lokasi', 'like', '%'.$request->search.'%')
+                ->orWhere('keterangan', 'like', '%'.$request->search.'%');
+            });
+        }
+
+        // DATA TERBARU
+        $aspirasis = $query->latest()->take(5)->get();
+
+        // STAT
+        $total = \App\Models\Aspirasi::where('siswa_id',$id)->count();
+        $menunggu = \App\Models\Aspirasi::where('siswa_id',$id)->where('status','Menunggu')->count();
+        $selesai = \App\Models\Aspirasi::where('siswa_id',$id)->where('status','Selesai')->count();
+
+        $siswa = \App\Models\Siswa::find($id);
+
+        return view('siswa.dashboard', compact(
+            'aspirasis','total','menunggu','selesai','siswa'
+        ));
     }
     
 }

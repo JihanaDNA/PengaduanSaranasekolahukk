@@ -10,7 +10,6 @@
             background: #F7F4D5;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: 240px;
             height: 100vh;

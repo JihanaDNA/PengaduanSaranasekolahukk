@@ -17,7 +17,9 @@ class Aspirasi extends Model
     'status',
     'feedback',
     'tanggal_aspirasi',
-    'foto'
+    'foto',
+    'catatan_admin',
+    'foto_bukti'
     ];
 
     public function siswa()

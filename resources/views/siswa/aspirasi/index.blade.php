@@ -5,116 +5,212 @@
     .data-wrapper {
         background: white;
         padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid #f0f0f0;
     }
 
     .data-wrapper h2 {
-        margin-top: 0;
         margin-bottom: 25px;
         color: #0A3323;
-        font-size: 24px;
-        border-bottom: 2px solid #F7F4D5;
-        padding-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .search-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 25px;
+        background: #fcfcf7;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+    }
+
+    .search-box input,
+    .search-box select {
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #DEDAB4;
+        outline: none;
+    }
+
+    .search-box input {
+        flex: 1;
+    }
+
+    .btn-filter {
+        background: #0A3323;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .btn-reset {
+        display: flex;
+        align-items: center;
+        color: #888;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .table-container {
+        overflow-x: auto;
     }
 
     table {
         width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-        border: 1px solid #839958;
+        border-collapse: separate;
+        border-spacing: 0;
     }
 
     table th {
-        background: #F7F4D5;
+        background: #F9F8EE;
         color: #0A3323;
+        padding: 15px;
         text-align: left;
-        padding: 12px;
-        border: 1px solid #839958;
-        font-size: 14px;
+        font-size: 13px;
+        text-transform: uppercase;
+        border-bottom: 2px solid #839958;
     }
 
     table td {
-        padding: 12px;
-        border: 1px solid #839958;
-        color: #333;
+        padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
         font-size: 14px;
-        vertical-align: middle;
+        vertical-align: top;
     }
 
-    table tr:nth-child(even) {
-        background-color: #fcfcfc;
+    .lokasi-text {
+        font-weight: 600;
+        color: #0A3323;
     }
 
-    /* Badge Status */
+    .keterangan-text {
+        color: #555;
+        line-height: 1.5;
+        max-width: 250px;
+        word-wrap: break-word;
+    }
+
     .status-badge {
         padding: 6px 12px;
-        border-radius: 20px;
+        border-radius: 8px;
         font-size: 12px;
-        font-weight: bold;
-        display: inline-block;
+        font-weight: 600;
     }
 
-    .status-menunggu { background: #f8d7da; color: #721c24; }
-    .status-proses { background: #fff3cd; color: #856404; }
-    .status-selesai { background: #d4edda; color: #155724; }
-    .status-ditolak { background: #ebebeb; color: #333; }
+    .status-menunggu { background: #FFE5E5; color: #D32F2F; }
+    .status-proses   { background: #FFF4E5; color: #ED6C02; }
+    .status-selesai  { background: #E8F5E9; color: #2E7D32; }
 
     .img-thumbnail {
         border-radius: 8px;
-        border: 1px solid #839958;
         object-fit: cover;
+        border: 1px solid #eee;
+    }
+
+    .empty-text {
+        text-align: center;
+        padding: 40px;
+        color: #999;
     }
 </style>
 
 <div class="data-wrapper">
-    <h2>Riwayat Aspirasi Saya</h2>
+    <h2>Riwayat Aspirasi</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th width="40">No</th>
-                <th>Kategori</th>
-                <th>Lokasi</th>
-                <th>Keterangan</th>
-                <th width="120">Foto</th>
-                <th width="130">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($aspirasis as $i => $a)
-            <tr>
-                <td align="center">{{ $i+1 }}</td>
-                <td><strong>{{ $a->kategori->ket_kategori ?? '-' }}</strong></td>
-                <td>{{ $a->lokasi }}</td>
-                <td>{{ $a->keterangan }}</td>
+    <form method="GET" action="/siswa/aspirasi" class="search-box">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Cari..."
+            value="{{ request('search') }}"
+        >
 
-                <td align="center">
-                    @if($a->foto)
-                        <img src="/photo/uploads/{{ $a->foto }}" width="80" height="80" class="img-thumbnail">
-                    @else
-                        <span style="color: #999; font-style: italic; font-size: 12px;">Tidak ada foto</span>
-                    @endif
-                </td>
+        <select name="status">
+            <option value="">Semua Status</option>
+            <option value="Menunggu" {{ request('status')=='Menunggu' ? 'selected' : '' }}>Menunggu</option>
+            <option value="Proses" {{ request('status')=='Proses' ? 'selected' : '' }}>Proses</option>
+            <option value="Selesai" {{ request('status')=='Selesai' ? 'selected' : '' }}>Selesai</option>
+        </select>
 
-                <td align="center">
-                    @if($a->status == 'Menunggu')
-                        <span class="status-badge status-menunggu">Menunggu</span>
-                    @elseif($a->status == 'Proses')
-                        <span class="status-badge status-proses">Proses</span>
-                    @elseif($a->status == 'Selesai')
-                        <span class="status-badge status-selesai">Selesai</span>
-                    @else
-                        <span class="status-badge status-ditolak">Ditolak</span>
-                    @endif
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="6" align="center" style="padding: 30px; color: #999;">Kamu belum pernah mengirim aspirasi.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+        <button type="submit" class="btn-filter">Filter</button>
+
+        <a href="/siswa/aspirasi" class="btn-reset">Reset</a>
+    </form>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kategori</th>
+                    <th>Lokasi</th>
+                    <th>Keterangan</th>
+                    <th>Foto</th>
+                    <th>Status</th>
+                    <th>Catatan</th>
+                    <th>Bukti</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse($aspirasis as $a)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+
+                    <td>
+                        <strong>{{ $a->kategori->ket_kategori ?? '-' }}</strong>
+                    </td>
+
+                    <td>
+                        <div class="lokasi-text">{{ $a->lokasi }}</div>
+                    </td>
+
+                    <td>
+                        <div class="keterangan-text">{{ $a->keterangan }}</div>
+                    </td>
+
+                    <td>
+                        @if($a->foto)
+                            <img src="/photo/uploads/{{ $a->foto }}" width="60" height="60" class="img-thumbnail">
+                        @else
+                            <span style="color:#ccc;">-</span>
+                        @endif
+                    </td>
+
+                    <td>
+                        <span class="status-badge status-{{ strtolower($a->status) }}">
+                            {{ $a->status }}
+                        </span>
+                    </td>
+
+                    <td style="font-size:13px; color:#666;">
+                        {{ $a->catatan_admin ?? '-' }}
+                    </td>
+
+                    <td>
+                        @if($a->status == 'Selesai' && $a->foto_bukti)
+                            <img src="/photo/bukti/{{ $a->foto_bukti }}" width="60" height="60" class="img-thumbnail">
+                        @else
+                            <span style="color:#ccc;">-</span>
+                        @endif
+                    </td>
+
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="8" class="empty-text">
+                        Belum ada data.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection

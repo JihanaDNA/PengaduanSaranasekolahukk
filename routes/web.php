@@ -38,7 +38,9 @@ Route::middleware('admin')->group(function () {
 
     // riwayat aspirasi
     Route::get('/admin/riwayat-aspirasi', [RiwayatAspirasiController::class, 'index']);
+    Route::get('/admin/riwayat-aspirasi/{id}', [RiwayatAspirasiController::class, 'show']);
     Route::post('/admin/riwayat-aspirasi/update-status/{id}', [RiwayatAspirasiController::class, 'updateStatus']);
+    Route::post('/admin/riwayat-aspirasi/update/{id}', [RiwayatAspirasiController::class, 'updateAspirasi']);
 
 });
 

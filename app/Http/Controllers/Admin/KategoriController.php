@@ -8,18 +8,17 @@ use App\Models\Kategori;
 
 class KategoriController extends Controller
 {
-    // ======================
-    // LIST KATEGORI
-    // ======================
-    public function index()
+    public function index(Request $request)
     {
-        $kategoris = Kategori::all();
+        $search = $request->search;
+
+        $kategoris = Kategori::when($search, function ($query) use ($search) {
+            $query->where('ket_kategori', 'like', "%$search%");
+        })->get();
+
         return view('admin.kategori.index', compact('kategoris'));
     }
-
-    // ======================
-    // FORM TAMBAH
-    // ======================
+ 
     public function create()
     {
         return view('admin.kategori.create');

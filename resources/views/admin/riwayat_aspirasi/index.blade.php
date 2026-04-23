@@ -1,181 +1,250 @@
 @extends('layouts.admin')
 
 @section('content')
+
 <style>
     .data-wrapper {
         background: white;
         padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid #f0f0f0;
     }
 
     .data-wrapper h2 {
-        margin-top: 0;
         margin-bottom: 25px;
         color: #0A3323;
-        font-size: 24px;
-        border-bottom: 2px solid #F7F4D5;
-        padding-bottom: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
-    .alert-success {
-        background: #d4edda;
-        color: #155724;
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        border-left: 5px solid #839958;
-        font-weight: bold;
+    /* 🔥 FILTER BOX */
+    .filter-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 25px;
+        background: #fcfcf7;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        align-items: center;
+    }
+
+    .filter-wrapper input,
+    .filter-wrapper select {
+        padding: 10px 15px;
+        border: 1.5px solid #DEDAB4;
+        border-radius: 10px;
+        outline: none;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .filter-wrapper input:focus, 
+    .filter-wrapper select:focus {
+        border-color: #839958;
+        background: #fff;
+    }
+
+    .filter-wrapper input { flex: 1; min-width: 250px; }
+
+    .btn-filter {
+        background: #0A3323;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-filter:hover { background: #144d36; }
+
+    .table-container {
+        overflow-x: auto;
+        border-radius: 12px;
+        border: 1px solid #eee;
     }
 
     table {
         width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-        border: 1px solid #839958;
+        border-collapse: separate;
+        border-spacing: 0;
+        min-width: 1100px; 
     }
 
-    table th {
-        background: #F7F4D5;
+    th {
+        background: #F9F8EE;
         color: #0A3323;
-        text-align: left;
-        padding: 12px;
-        border: 1px solid #839958;
-        font-size: 14px;
+        padding: 15px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        border-bottom: 2px solid #839958;
+        position: sticky;
+        top: 0;
     }
 
-    table td {
-        padding: 12px;
-        border: 1px solid #839958;
-        color: #333;
+    td {
+        padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
         font-size: 14px;
         vertical-align: middle;
+        color: #444;
     }
 
-    table tr:nth-child(even) {
-        background-color: #fcfcfc;
+    tr:hover td {
+        background: #fafdfa;
     }
 
-    select {
-        width: 100%;
-        padding: 8px;
-        border-radius: 6px;
-        border: 1px solid #839958;
-        cursor: pointer;
-        outline: none;
-        font-family: inherit;
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-    .img-display {
-        border-radius: 8px;
-        border: 1px solid #839958;
+    .img-preview {
+        width: 50px;
+        height: 50px;
         object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        transition: 0.3s;
     }
+
+    .img-preview:hover {
+        transform: scale(1.2);
+        cursor: zoom-in;
+    }
+
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        display: inline-block;
+        text-align: center;
+        min-width: 80px;
+    }
+
+    .menunggu { background: #FFE5E5; color: #D32F2F; }
+    .proses { background: #FFF4E5; color: #ED6C02; }
+    .selesai { background: #E8F5E9; color: #2E7D32; }
 
     .btn-detail {
-    background: #0A3323;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 12px;
+        background: #f1f5f0;
+        color: #0A3323;
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        transition: 0.3s;
     }
 
     .btn-detail:hover {
-        background: #839958;
+        background: #0A3323;
+        color: white;
     }
 </style>
 
 <div class="data-wrapper">
+
     <h2>Laporan Aspirasi</h2>
 
-    @if(session('success'))
-        <div class="alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    <form method="GET" class="filter-wrapper">
+        <input 
+            type="text"
+            name="search"
+            placeholder="Cari nama siswa, kategori, atau lokasi..."
+            value="{{ request('search') }}"
+        >
 
-    <table>
-        <thead>
-            <tr>
-                <th width="40">No</th>
-                <th>Nama Siswa</th>
-                <th>Kategori</th>
-                <th>Lokasi</th>
-                <th>Keterangan</th>
-                <th width="140">Tanggal</th>
-                <th width="120">Foto</th>
-                <th width="160">Status</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($aspirasis as $i => $a)
-            <tr>
-                <td align="center">{{ $i+1 }}</td>
-                <td><strong>{{ $a->siswa->nama ?? '-' }}</strong></td>
-                <td>{{ $a->kategori->ket_kategori ?? '-' }}</td>
-                <td>{{ $a->lokasi }}</td>
-                <td>{{ $a->keterangan }}</td>
+        <select name="status">
+            <option value="">Semua Status</option>
+            <option value="Menunggu" {{ request('status') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
+            <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
+            <option value="Selesai" {{ request('status') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+        </select>
 
-                <td align="center">
-                    {{ \Carbon\Carbon::parse($a->tanggal_aspirasi)->format('d M Y') }}
-                </td>
+        <button type="submit" class="btn-filter">Terapkan Filter</button>
+        <a href="/admin/riwayat-aspirasi" style="color: #888; text-decoration: none; font-size: 13px;">Reset</a>
+    </form>
 
-                <td align="center">
-                    @if($a->foto)
-                        <img src="/photo/uploads/{{ $a->foto }}" width="80" height="80" class="img-display">
-                    @else
-                        <span style="color: #999; font-style: italic; font-size: 12px;">
-                            Tidak ada foto
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th width="50">No</th>
+                    <th>Nama Siswa</th>
+                    <th>Kategori</th>
+                    <th>Lokasi</th>
+                    <th width="200">Keterangan</th>
+                    <th>Tanggal</th>
+                    <th>Foto</th>
+                    <th>Bukti</th>
+                    <th>Status</th>
+                    <th width="100">Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse($aspirasis as $i => $a)
+                <tr>
+                    <td align="center" style="color: #999;">{{ $i+1 }}</td>
+                    <td><strong>{{ $a->siswa->nama ?? '-' }}</strong></td>
+                    <td><span style="color: #839958; font-weight: 600;">{{ $a->kategori->ket_kategori ?? '-' }}</span></td>
+                    <td>{{ $a->lokasi }}</td>
+                    <td title="{{ $a->keterangan }}">
+                        {{ \Illuminate\Support\Str::limit($a->keterangan, 40) }}
+                    </td>
+
+                    <td>
+                        <span style="font-size: 12px; color: #666;">
+                            {{ \Carbon\Carbon::parse($a->tanggal_aspirasi)->format('d M Y') }}
                         </span>
-                    @endif
-                </td>
+                    </td>
 
-                <td>
-                    <form method="POST" action="/admin/riwayat-aspirasi/update-status/{{ $a->id }}">
-                        @csrf
-                        @php
-                            $bgColor = '#f8d7da'; 
-                            $textColor = '#721c24';
+                    <td>
+                        @if($a->foto)
+                            <img src="/photo/uploads/{{ $a->foto }}" class="img-preview">
+                        @else
+                            <span style="color: #ccc;">-</span>
+                        @endif
+                    </td>
 
-                            if($a->status == 'Proses') {
-                                $bgColor = '#fff3cd'; 
-                                $textColor = '#856404';
-                            } elseif($a->status == 'Selesai') {
-                                $bgColor = '#d4edda'; 
-                                $textColor = '#155724';
-                            } elseif($a->status == 'Ditolak') {
-                                $bgColor = '#ebebeb'; 
-                                $textColor = '#333';
-                            }
-                        @endphp
+                    <td>
+                        @if($a->status == 'Selesai' && $a->foto_bukti)
+                            <img src="/photo/bukti/{{ $a->foto_bukti }}" class="img-preview">
+                        @else
+                            <span style="color: #ccc;">-</span>
+                        @endif
+                    </td>
 
-                        <select name="status" onchange="this.form.submit()" 
-                            style="background-color: {{ $bgColor }}; color: {{ $textColor }};">
-                            <option value="Menunggu" {{ $a->status == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
-                            <option value="Proses" {{ $a->status == 'Proses' ? 'selected' : '' }}>Proses</option>
-                            <option value="Selesai" {{ $a->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                            <option value="Ditolak" {{ $a->status == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
-                        </select>
-                    </form>
-                </td>
-                <td>
-                    <a href="/" class="btn-detail">
-                        Detail
-                    </a>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="8" align="center" style="padding: 30px; color: #999;">
-                    Belum ada laporan aspirasi masuk.
-                </td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+                    <td>
+                        @php $class = strtolower($a->status); @endphp
+                        <span class="status-badge {{ $class }}">
+                            {{ $a->status }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <a href="/admin/riwayat-aspirasi/{{ $a->id }}" class="btn-detail">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
+
+                @empty
+                <tr>
+                    <td colspan="10" align="center" style="padding: 50px; color: #999;">
+                        Tidak ada data aspirasi ditemukan.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
 </div>
+
 @endsection

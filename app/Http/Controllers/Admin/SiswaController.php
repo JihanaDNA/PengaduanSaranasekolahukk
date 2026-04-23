@@ -8,26 +8,24 @@ use App\Models\Siswa;
 
 class SiswaController extends Controller
 {
-    // ======================
-    // LIST SISWA
-    // ======================
-    public function index()
+    public function index(Request $request)
     {
-        $siswas = Siswa::all();
+        $search = $request->search;
+
+        $siswas = Siswa::when($search, function ($query) use ($search) {
+            $query->where('nis', 'like', "%$search%")
+                  ->orWhere('nama', 'like', "%$search%")
+                  ->orWhere('kelas', 'like', "%$search%");
+        })->get();
+
         return view('admin.siswa.index', compact('siswas'));
     }
 
-    // ======================
-    // FORM TAMBAH
-    // ======================
     public function create()
     {
         return view('admin.siswa.create');
     }
 
-    // ======================
-    // SIMPAN DATA
-    // ======================
     public function store(Request $request)
     {
         $request->validate([
