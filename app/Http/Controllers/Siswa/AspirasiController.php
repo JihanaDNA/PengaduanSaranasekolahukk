@@ -26,15 +26,24 @@ class AspirasiController extends Controller
         $request->validate([
             'kategori_id' => 'required',
             'lokasi' => 'required',
-            'keterangan' => 'required'
+            'keterangan' => 'required',
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+        ], [
+            'kategori_id.required' => 'Kategori wajib dipilih!',
+            'lokasi.required' => 'Lokasi wajib diisi!',
+            'keterangan.required' => 'Keterangan wajib diisi!',
+            'foto.required' => 'Foto wajib diupload!',
+            'foto.image' => 'File harus berupa gambar!',
+            'foto.mimes' => 'Format harus jpg, jpeg, atau png!',
+            'foto.max' => 'Ukuran maksimal 2MB!'
         ]);
 
-        $namaFile = null;
-       if ($request->hasFile('foto')) {
-        $namaFile = time().'_'.$request->file('foto')->getClientOriginalName();
-        $request->file('foto')->move(public_path('photo/uploads'), $namaFile);
-        }
+        // Upload Foto (karena sudah required, pasti ada file)
+        $file = $request->file('foto');
+        $namaFile = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('photo/uploads'), $namaFile);
 
+        // Simpan ke database
         Aspirasi::create([
             'siswa_id' => session('siswa_id'),
             'kategori_id' => $request->kategori_id,
@@ -50,7 +59,7 @@ class AspirasiController extends Controller
 
     public function index()
     {
-        $aspirasis = \App\Models\Aspirasi::with('kategori')
+        $aspirasis = Aspirasi::with('kategori')
             ->where('siswa_id', session('siswa_id'))
             ->get();
 

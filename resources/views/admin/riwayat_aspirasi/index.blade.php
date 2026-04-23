@@ -73,6 +73,19 @@
         border: 1px solid #839958;
         object-fit: cover;
     }
+
+    .btn-detail {
+    background: #0A3323;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    }
+
+    .btn-detail:hover {
+        background: #839958;
+    }
 </style>
 
 <div class="data-wrapper">
@@ -95,6 +108,7 @@
                 <th width="140">Tanggal</th>
                 <th width="120">Foto</th>
                 <th width="160">Status</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -147,6 +161,11 @@
                             <option value="Ditolak" {{ $a->status == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
                         </select>
                     </form>
+                </td>
+                <td>
+                    <a href="/" class="btn-detail">
+                        Detail
+                    </a>
                 </td>
             </tr>
             @empty
