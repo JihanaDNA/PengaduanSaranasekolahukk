@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
-use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,7 +14,6 @@ class DashboardController extends Controller
         $query = \App\Models\Aspirasi::with('kategori')
             ->where('siswa_id', $id);
 
-        // SEARCH
         if ($request->search) {
             $query->where(function($q) use ($request) {
                 $q->where('lokasi', 'like', '%'.$request->search.'%')
@@ -23,10 +21,8 @@ class DashboardController extends Controller
             });
         }
 
-        // DATA TERBARU
         $aspirasis = $query->latest()->take(5)->get();
 
-        // STAT
         $total = \App\Models\Aspirasi::where('siswa_id',$id)->count();
         $menunggu = \App\Models\Aspirasi::where('siswa_id',$id)->where('status','Menunggu')->count();
         $selesai = \App\Models\Aspirasi::where('siswa_id',$id)->where('status','Selesai')->count();

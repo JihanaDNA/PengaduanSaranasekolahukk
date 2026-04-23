@@ -24,9 +24,6 @@ class KategoriController extends Controller
         return view('admin.kategori.create');
     }
 
-    // ======================
-    // SIMPAN DATA
-    // ======================
     public function store(Request $request)
     {
         $request->validate([
@@ -40,18 +37,12 @@ class KategoriController extends Controller
         return redirect('/admin/kategori')->with('success', 'Kategori berhasil ditambah');
     }
 
-    // ======================
-    // FORM EDIT
-    // ======================
     public function edit($id)
     {
         $kategori = Kategori::findOrFail($id);
         return view('admin.kategori.edit', compact('kategori'));
     }
 
-    // ======================
-    // UPDATE
-    // ======================
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -66,9 +57,6 @@ class KategoriController extends Controller
         return redirect('/admin/kategori')->with('success', 'Kategori berhasil diupdate');
     }
 
-    // ======================
-    // DELETE
-    // ======================
     public function destroy($id)
     {
         $kategori = Kategori::findOrFail($id);
