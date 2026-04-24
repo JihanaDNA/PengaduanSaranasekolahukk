@@ -3,48 +3,47 @@
 @section('content')
 
 <style>
-    .data-wrapper {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        border: 1px solid #f0f0f0;
-    }
-
-    .data-wrapper h2 {
-        margin-bottom: 25px;
-        color: #0A3323;
-        font-weight: 700;
-    }
-
     .filter-wrapper {
         display: flex;
-        flex-wrap: wrap;
         gap: 12px;
-        margin-bottom: 25px;
-        background: #fcfcf7;
+        margin-bottom: 20px;
+        background: #fff;
         padding: 15px;
         border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
 
     .filter-wrapper input,
     .filter-wrapper select {
-        padding: 10px;
-        border: 1.5px solid #DEDAB4;
+        padding: 10px 15px;
+        border: 1.5px solid #eee;
         border-radius: 10px;
+        outline: none;
+        transition: 0.3s;
+        font-size: 14px;
     }
+
+    .filter-wrapper input:focus,
+    .filter-wrapper select:focus {
+        border-color: #839958;
+    }
+
+    .filter-wrapper input { flex: 2; }
+    .filter-wrapper select { flex: 1; }
 
     .btn-filter {
         background: #0A3323;
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 25px;
         border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
     }
 
-    .table-container {
-        overflow-x: auto;
-    }
+    .btn-filter:hover { background: #144d36; }
+
 
     table {
         width: 100%;

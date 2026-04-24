@@ -172,7 +172,6 @@
 
     <h2>Dashboard Admin</h2>
 
-    {{-- CARD STATS --}}
     <div class="cards">
         <div class="card">
             <h3>Total Siswa</h3>
