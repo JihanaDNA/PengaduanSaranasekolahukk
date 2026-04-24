@@ -54,13 +54,17 @@
         font-weight: 500;
     }
 
+    /* Search Box - DIPERBAIKI */
     .search-box {
         margin-bottom: 25px;
+        display: flex;
+        justify-content: flex-end;
     }
 
     .search-box input {
         width: 100%;
-        padding: 14px 20px;
+        max-width: 350px;
+        padding: 12px 18px;
         border: 1.5px solid #E0E0E0;
         border-radius: 12px;
         outline: none;
@@ -155,12 +159,13 @@
         </div>
     @endif
 
-    <form method="GET" class="search-box">
+    <form method="GET" action="/admin/siswa" class="search-box">
         <input 
             type="text"
             name="search"
             placeholder="Cari NIS, Nama Lengkap, atau Kelas..."
             value="{{ request('search') }}"
+            autocomplete="off"
         >
     </form>
 

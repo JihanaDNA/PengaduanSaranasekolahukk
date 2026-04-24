@@ -42,4 +42,41 @@ class SiswaController extends Controller
 
         return redirect('/admin/siswa')->with('success', 'Siswa berhasil ditambahkan');
     }
+
+    // Method untuk menampilkan form edit
+    public function edit($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        return view('admin.siswa.edit', compact('siswa'));
+    }
+
+    // Method untuk mengupdate data
+    public function update(Request $request, $id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'kelas' => 'required|string|max:50',
+        ], [
+            'nama.required' => 'Nama lengkap wajib diisi',
+            'kelas.required' => 'Kelas wajib diisi',
+        ]);
+        
+        $siswa->update([
+            'nama' => $request->nama,
+            'kelas' => $request->kelas,
+        ]);
+        
+        return redirect('/admin/siswa')->with('success', 'Data siswa berhasil diupdate!');
+    }
+
+    // Method untuk menghapus data
+    public function delete($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        $siswa->delete();
+        
+        return redirect('/admin/siswa')->with('success', 'Data siswa berhasil dihapus!');
+    }
 }

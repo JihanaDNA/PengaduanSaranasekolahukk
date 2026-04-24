@@ -34,6 +34,8 @@ Route::middleware('admin')->group(function () {
     // siswa
     Route::get('/admin/siswa', [SiswaController::class, 'index']);
     Route::get('/admin/siswa/create', [SiswaController::class, 'create']);
+    Route::get('/admin/siswa/edit/{id}', [SiswaController::class, 'edit']);
+    Route::put('/admin/siswa/update/{id}', [SiswaController::class, 'update']);
     Route::post('/admin/siswa/store', [SiswaController::class, 'store']);
 
     // riwayat aspirasi
