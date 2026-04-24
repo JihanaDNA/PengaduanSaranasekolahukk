@@ -166,6 +166,13 @@
         background: #0A3323;
         color: #fff;
     }
+
+    /* Date style */
+    .date-tanggal {
+        font-size: 13px;
+        color: #666;
+        white-space: nowrap;
+    }
 </style>
 
 <div class="dashboard-wrapper">
@@ -240,7 +247,9 @@
                             {{ \Illuminate\Support\Str::limit($item->keterangan, 40) }}
                         </td>
                         <td>
-                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</small>
+                            <span class="date-tanggal">
+                                {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
+                            </span>
                         </td>
                         <td>
                             <span class="badge 
